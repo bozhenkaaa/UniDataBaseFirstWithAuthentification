@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebApplication3.Models.Passenger>
+
+@{
+    ViewData["Title"] = "Passengers";
+}
+
+<h1>Passengers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div>
+    <h3>Завантаження інформації в файл</h3>
+    <a asp-action="Export">Завантажити в .docx</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PsSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PsName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PsPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PsPassport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PsEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PsSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PsPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PsPassport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PsEmail)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PsId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PsId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PsId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="container">
+    <div id="chart2"></div>
+</div>
+@section scripts{
+    <script type "text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            $.get('/api/Chart/JsonData1', function (JsonData1) {
+                data = google.visualization.arrayToDataTable(JsonData1, false);
+                var option = {
+                    title: "Співвідношення кількості квитків та пасажирів",
+                    width: 500,
+                    height: 400
+                };
+                chart = new google.visualization.PieChart(document.getElementById('chart2'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}

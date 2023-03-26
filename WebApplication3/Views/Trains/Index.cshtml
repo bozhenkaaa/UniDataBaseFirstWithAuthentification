@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication3.Models.Train>
+
+@{
+    ViewData["Title"] = "Потяги за розкладом";
+}
+
+<h1>Потяги за розкладом @ViewBag.StationName</h1>
+
+<p>
+    @Html.ActionLink("Додати новий потяг","Create",new {Id=ViewBag.ScheduleId})
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainDeparture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainDestination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainTimeOfDep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainTimeOfStop)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainDeparture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainDestination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainTimeOfDep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainTimeOfStop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Schedule.ScheduleId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TrainId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TrainId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrainId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

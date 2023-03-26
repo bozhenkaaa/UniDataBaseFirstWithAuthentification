@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApplication3.Models.Train>
+
+@{
+    ViewData["Title"] = "Trains";
+}
+
+<h1>Trains</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainDeparture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainDestination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainTimeOfDep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainTimeOfStop)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Schedule)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainDeparture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainDestination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainTimeOfDep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainTimeOfStop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Schedule.StationName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TrainId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TrainId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrainId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="container">
+    <div id="chart3"></div>
+</div>
+@section scripts{
+    <script type "text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            $.get('/api/Chart/JsonData2', function (JsonData2) {
+                data = google.visualization.arrayToDataTable(JsonData2, false);
+                var option = {
+                    title: "Співвідношення кількості дат та міст відправлень",
+                    width: 500,
+                    height: 400
+                };
+                chart = new google.visualization.PieChart(document.getElementById('chart3'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}

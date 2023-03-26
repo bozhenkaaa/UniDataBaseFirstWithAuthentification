@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplication3.Models.Carriage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    @Html.ActionLink("Додати новий вагонг","Create",new {Id=ViewBag.TrainId})
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CarriageType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarriageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Train)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarriageType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarriageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Train.TrainDeparture)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CarriageId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CarriageId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CarriageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
