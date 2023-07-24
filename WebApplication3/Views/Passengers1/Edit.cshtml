@@ -1,0 +1,51 @@
+﻿@model WebApplication3.Models.Passenger
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Passenger</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PsId" />
+            <div class="form-group">
+                <label asp-for="PsSurname" class="control-label"></label>
+                <input asp-for="PsSurname" class="form-control" />
+                <span asp-validation-for="PsSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PsName" class="control-label"></label>
+                <input asp-for="PsName" class="form-control" />
+                <span asp-validation-for="PsName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PsPhone" class="control-label"></label>
+                <input asp-for="PsPhone" class="form-control" />
+                <span asp-validation-for="PsPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PsPassport" class="control-label"></label>
+                <input asp-for="PsPassport" class="form-control" />
+                <span asp-validation-for="PsPassport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PsEmail" class="control-label"></label>
+                <input asp-for="PsEmail" class="form-control" />
+                <span asp-validation-for="PsEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

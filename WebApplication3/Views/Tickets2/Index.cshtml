@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<WebApplication3.Models.Ticket>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Квитки";
 }
 
-<h1>Index</h1>
-
-<p>
+<h1>Квитки за потягом</h1>
+@if (User.IsInRole("admin"))
+{
+    <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>}
 <table class="table">
     <thead>
         <tr>
@@ -27,9 +28,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.PIdNavigation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ps)
-            </th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Ps)
+            </th>}
             <th></th>
         </tr>
     </thead>
@@ -51,14 +54,25 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PIdNavigation.PId)
             </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ps.PsName)
+            </td>}
             <td>
-                @Html.DisplayFor(modelItem => item.Ps.PsName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
-            </td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.TicketId">Details</a>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
+                    }
+                </td>
         </tr>
 }
     </tbody>

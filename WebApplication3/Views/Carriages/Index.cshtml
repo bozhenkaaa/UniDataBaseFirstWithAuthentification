@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<WebApplication3.Models.Carriage>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Вагони";
 }
 
-<h1>Index</h1>
-
-<p>
+<h1>Вагони</h1>
+@if (User.IsInRole("admin"))
+{
+    <p>
     @Html.ActionLink("Додати новий вагонг","Create",new {Id=ViewBag.TrainId})
 
-</p>
+</p>}
 <table class="table">
     <thead>
         <tr>
@@ -44,10 +45,17 @@
                 @Html.DisplayFor(modelItem => item.Train.TrainDeparture)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CarriageId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CarriageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarriageId">Delete</a>
-            </td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.CarriageId">Edit</a>
+                        }
+                        
+                            <a asp-action="Details" asp-route-id="@item.CarriageId">Details</a>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.CarriageId">Delete</a>
+                        }
+                    </td>
         </tr>
 }
     </tbody>

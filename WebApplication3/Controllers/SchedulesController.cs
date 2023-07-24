@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication3.Models;
 using ClosedXML.Excel;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication3.Controllers
 {
@@ -47,6 +47,7 @@ namespace WebApplication3.Controllers
             //return View(schedule);
             return RedirectToAction("Index","Trains",new {id=schedule.ScheduleId, name=schedule.StationName});
         }
+        
 
         // GET: Schedules/Create
         public IActionResult Create()
@@ -59,6 +60,7 @@ namespace WebApplication3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("ScheduleId,StationNumber,StationName")] Schedule schedule)
         {
             if (ModelState.IsValid)

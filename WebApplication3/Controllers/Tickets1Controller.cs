@@ -28,6 +28,14 @@ namespace WebApplication3.Controllers
             var tickets = _context.Tickets.Where(b => b.PId == id).Include(b => b.Ps).Include(b => b.Carriage).Include(b => b.PIdNavigation);
             return View(await tickets.ToListAsync());
         }
+        public async Task<IActionResult> Index1(int? id, DateTime? name)
+        {
+            ViewBag.PId = id;
+            ViewBag.TrainDate = name;
+            //var lab1Context = _context.Trains.Include(t => t.Schedule);
+            var tickets = _context.Tickets.Where(b => b.PId == id).Include(b => b.Ps).Include(b => b.Carriage).Include(b => b.PIdNavigation);
+            return View(await tickets.ToListAsync());
+        }
 
         // GET: Tickets1/Details/5
         public async Task<IActionResult> Details(int? id)

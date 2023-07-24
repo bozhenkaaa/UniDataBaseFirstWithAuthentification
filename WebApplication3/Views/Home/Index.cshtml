@@ -1,8 +1,62 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Лабораторна роботи ІСтаТП 2021. Бібліотека";
+}
+<div>
+    
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    
+
+    <p align="center"><font size="20" color="green" face="Arial">@User.Identity.Name</font></p>
+    <form method="get" asp-controller="Schedules" asp-action="Index">
+        <p align="center">
+            <input type="submit" class="btn btn-primary btn-lg" style="width:200px" value="Розклад" />
+        </p>
+    </form>
+    <form method="get" asp-controller="Trains" asp-action="Index">
+        <p align="center">
+            <input type="submit" class="btn btn-primary btn-lg" style="width:200px" value="Потяги" />
+        </p>
+    </form>
+
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <p align="center">
+        <input type="submit" class="btn btn-primary btn-lg" style="width:200px"  value="Вихід" />
+        </p>
+    </form>
+    <p align="center">
+    <img src="https://media.istockphoto.com/id/1395740844/vector/high-speed-rail-vector-illustration.jpg?s=612x612&w=0&k=20&c=OM_1_kVPCvvl633lOxmtygMYxpbhM9ZR2Q4xvJlI7-A=">
+    </p>
+}
+else
+{
+    <div>
+        
+<p align="center"><font size="20" color="green" face="Arial">
+         Register or Log in
+         </font> </p>
+    
+</div>
+<div>
+    </div>
+    
+    <form method="get" asp-controller="Account" asp-action="Login">
+        <p align="center">
+            <input type="submit" class="btn btn-primary btn-lg" style="width:200px" value="Вхід" />
+        </p>
+    </form>
+    <form method="get" asp-controller="Account" asp-action="Register">
+        <p align="center">
+            <input type="submit" class="btn btn-primary btn-lg" style="width:200px" value="Реєстрація" />
+        </p>
+    </form>
+    <p align="center">
+        <img src="https://media.istockphoto.com/id/1395740844/vector/high-speed-rail-vector-illustration.jpg?s=612x612&w=0&k=20&c=OM_1_kVPCvvl633lOxmtygMYxpbhM9ZR2Q4xvJlI7-A=">
+    </p>
+
+
+    
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>

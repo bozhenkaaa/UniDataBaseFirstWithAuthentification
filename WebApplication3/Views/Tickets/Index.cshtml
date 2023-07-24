@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebApplication3.Models.Ticket>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Квитки";
 }
 
-<h1>Index</h1>
+<h1>Квитки</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -27,9 +27,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.PIdNavigation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ps)
-            </th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Ps)
+            </th>}
             <th></th>
         </tr>
     </thead>
@@ -51,14 +53,25 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PIdNavigation.PId)
             </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ps.PsId)
+            </td>}
             <td>
-                @Html.DisplayFor(modelItem => item.Ps.PsId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
-            </td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.TicketId">Details</a>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
+                    }
+                </td>
         </tr>
 }
     </tbody>

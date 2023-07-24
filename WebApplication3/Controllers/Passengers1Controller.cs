@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +9,22 @@ using WebApplication3.Models;
 
 namespace WebApplication3.Controllers
 {
-    
-    public class PassengersController : Controller
+    public class Passengers1Controller : Controller
     {
         private readonly Lab1Context _context;
 
-        public PassengersController(Lab1Context context)
+        public Passengers1Controller(Lab1Context context)
         {
             _context = context;
         }
 
-        // GET: Passengers
+        // GET: Passengers1
         public async Task<IActionResult> Index()
         {
               return View(await _context.Passengers.ToListAsync());
         }
 
-        // GET: Passengers/Details/5
+        // GET: Passengers1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Passengers == null)
@@ -44,18 +39,16 @@ namespace WebApplication3.Controllers
                 return NotFound();
             }
 
-            return RedirectToAction("Index", "Tickets", new { id = passenger.PsId, name = passenger.PsSurname });
+            return View(passenger);
         }
 
-        // GET: Passengers/Create
-        public IActionResult Create(int id)
+        // GET: Passengers1/Create
+        public IActionResult Create()
         {
-            //ViewBag.PsId = id;
-            //ViewBag.PsSurname = _context.Passengers.Where(c => c.TrainId == Id).FirstOrDefault().TrainDeparture;
             return View();
         }
 
-        // POST: Passengers/Create
+        // POST: Passengers1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -71,7 +64,7 @@ namespace WebApplication3.Controllers
             return View(passenger);
         }
 
-        // GET: Passengers/Edit/5
+        // GET: Passengers1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Passengers == null)
@@ -87,7 +80,7 @@ namespace WebApplication3.Controllers
             return View(passenger);
         }
 
-        // POST: Passengers/Edit/5
+        // POST: Passengers1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -122,7 +115,7 @@ namespace WebApplication3.Controllers
             return View(passenger);
         }
 
-        // GET: Passengers/Delete/5
+        // GET: Passengers1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Passengers == null)
@@ -140,7 +133,7 @@ namespace WebApplication3.Controllers
             return View(passenger);
         }
 
-        // POST: Passengers/Delete/5
+        // POST: Passengers1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -162,28 +155,6 @@ namespace WebApplication3.Controllers
         private bool PassengerExists(int id)
         {
           return _context.Passengers.Any(e => e.PsId == id);
-        }
-        public FileResult Export()
-        {
-            System.Console.InputEncoding = Encoding.GetEncoding(1251);
-           
-            var categories = _context.Passengers.ToList();
-            string word = string.Empty;
-            word = "PsId" +" , "+ "PsPhone" + " , " + "PsPassport" + " , " + "PsEmail";
-            word += "\r\n";
-            for (int i = 0; i < categories.Count; i++)
-            {
-                word += categories[i].PsId.ToString().Replace(",", ";") + ",";
-                word += categories[i].PsPhone.ToString().Replace(",", ";") + ",";
-                word += categories[i].PsPassport.ToString().Replace(",", ";") + ",";
-                if (categories[i].PsEmail != null)
-                {
-                    word += categories[i].PsEmail.Replace(",", ";") + ",";
-                }
-                word += "\r\n";
-            }
-            byte[] bytes = Encoding.ASCII.GetBytes(word);
-            return File(bytes, "application/vnd.ms-word", "Pass.doc");
         }
     }
 }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication3.Models;
+
 
 namespace WebApplication3.Controllers
 {
@@ -53,9 +55,10 @@ namespace WebApplication3.Controllers
         // GET: Carriages/Create
         //public IActionResult Create()
         //{
-            //ViewData["TrainId"] = new SelectList(_context.Trains, "TrainId", "TrainDeparture");
-            //return View();
+        //ViewData["TrainId"] = new SelectList(_context.Trains, "TrainId", "TrainDeparture");
+        //return View();
         //}
+        
         public IActionResult Create(int Id)
         {
             //ViewData["ScheduleId"] = new SelectList(_context.Schedules, "ScheduleId", "ScheduleId");

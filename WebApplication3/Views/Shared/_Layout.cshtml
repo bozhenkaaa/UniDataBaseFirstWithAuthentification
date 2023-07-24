@@ -22,12 +22,47 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index">Schedule</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Passengers" asp-action="Index">Passengers</a>
-                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Passengers" asp-action="Index">Passengers</a>
+                        </li>}
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trains1" asp-action="Index">Trains</a>
                         </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Admin</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("user"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Passengers1" asp-action="Index">Passengers</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item nav-link text-dark">@User.Identity.Name</li>
+                            <li class="nav-item">
+                                <form class="form-inline text-dark" method="post" asp-controller="Account" asp-action="Logout">
+                                    <input class="nav-link text-dark btn btn-light" type="submit" value="Вихід" />
+                                </form>
+                                
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item "><a align="right" class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вхід</a></li>
+                            <li class="nav-item "><a align="right" class="nav-link text-dark" asp-controller="Account" asp-action="Register">Реєстрація</a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -41,7 +76,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - WebApplication3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Let's travel together!
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
